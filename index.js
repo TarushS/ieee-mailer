@@ -6,7 +6,7 @@ const recipients = fs.readFileSync('recipient-list.txt', 'utf8').split('\n').map
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-    user: 'tarushsonakya@gmail.com',
+    user: 'tarush@ieee.org',
     pass: ''
   }
 });

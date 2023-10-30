@@ -1,0 +1,83 @@
+const fs = require('fs');
+const nodemailer = require('nodemailer');
+
+const recipients = fs.readFileSync('recipient-list.txt', 'utf8').split('\n').map(email => email.trim());
+
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'tarushsonakya@gmail.com',
+    pass: ''
+  }
+});
+
+const customhtml = `
+<html lang="en">
+<body style="background-color: rgb(27, 27, 27);">
+    <div style="width: 100%; display: flex; justify-content: center;">
+        <a style="width: 100%; display: flex; justify-content: center;"  target="_blank" href="https://techweek.ieeedtu.in/">
+            <img style="width: 100%;align-items: center;" class="image" src="https://res.cloudinary.com/dvdqzr2yu/image/upload/v1698574048/90883eb5-70a4-4776-8a2e-86a1b4958bb9_s53ooc.jpg"/>
+        </a>
+    </div>
+    <br/><br/>
+    <p style="margin: 5px; font-size: 1.2rem; color: white;">
+
+Dear Tech Enthusiast, <br/><br/>
+
+Are you ready to embark on a journey that will <b>redefine</b> your understanding of<br/>
+
+<b>technology</b> and <b>engineering</b>? Look no further! We are thrilled to introduce you to the most <b>electrifying</b> week of the year - <b>TechWeek'23</b>, brought to you by <b>IEEE DTU</b>.<br/><br/>
+
+<b>TechWeek'23</b> is not just an event; it's an <b>immersive</b> <b>experience</b> designed to fuel your passion for technology. From <b>November 4th to November 9th</b>, we invite you to join us for a week-long <b>extravaganza</b> that promises to delve deep into the most in-demand topics, including <b>Basic Programming</b>, <b>DSA</b>, <b>Web Development</b>, <b>Android Development</b>, <b>AI & ML</b>, <b>Graphic Design</b>, <b>Robotics</b>, <b>Basic Electronics</b>, and <b>Data Analytics</b>.<br/> <br/>
+
+This is your chance to <b>explore</b>, <b>learn</b>, and <b>interact</b> with experts in various domains, all under one roof. Whether you're a <b>seasoned pro </b>or just <b>starting your journey</b> in the world of engineering, <b>TechWeek'23 </b>offers something for everyone.<br/><br/>
+
+
+Secure your spot by <b>registering</b> on our <b>website:</b> <br/><br/>
+
+<a target="_blank" href="https://techweek.ieeedtu.in/
+"><button style="background-color: orange; color: white;width: 100%; height: 40px;border-radius: 8px;border: 2px solid black; font-size: 1.6rem;">Register</button></a> <br/><br/>
+
+
+<font color=white>Don't delay, as seats are limited, and we can't wait to welcome you into our vibrant community of tech enthusiasts.</font> <br/> <br/>
+
+
+
+Like, comment, and share our event on social media to spread the excitement:<br/><br/>
+
+<a target="_blank" href="https://rb.gy/92umx"><img src="https://cdn-icons-png.flaticon.com/512/3955/3955024.png" width="50" height="50"> </a><br/><br/>
+<a target="_blank" href="https://t.ly/gupDC"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" width="50" height="50"> </a> <br/><br/>
+<a target="_blank" href="https://t.ly/EFSlo"><img src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png" width="50" height="50"> </a> <br/><br/>
+
+We look forward to seeing you at <b>TechWeek'23!</b><br/><br/>
+
+If you have any questions or require further information, please do not hesitate to contact.<br/><br/>
+- Areeb Ahmed Khan: <a style="text-decoration: none; color: white;" href="tel:+918851492722">8851492722</a><br/><br/>
+
+Warm regards,<br/><br/>
+
+<b>Areeb</b>,<br/>
+<b>PR Coordinator</b>,<br/>
+<b>IEEE DTU</b><br/>
+    </p>
+</body>
+</html>
+`;
+
+const mailOptions = {
+  from: 'tarush@ieee.org',
+  subject: 'IEEE DTU TECHWEEK',
+  html: customhtml
+};
+
+recipients.forEach(recipient => {
+  mailOptions.to = recipient;
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error(`Failed to send email to ${recipient}: ${error.message}`);
+    } else {
+      console.log(`Email sent to ${recipient}: ${info.response}`);
+    }
+  });
+});

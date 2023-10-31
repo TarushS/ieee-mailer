@@ -11,7 +11,8 @@
   ```
   git clone https://github.com/TarushS/ieee-mailer && cd ieee-mailer
   npm i
-  node index.js```
+  node index.js
+  ```
 - edit index.js to your preference
 
 ## To setup google account app password
